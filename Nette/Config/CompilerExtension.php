@@ -52,7 +52,6 @@ abstract class CompilerExtension extends Nette\Object
 	{
 		$config = $this->compiler->getConfig();
 		$config = isset($config[$this->name]) ? $config[$this->name] : array();
-		unset($config['services'], $config['factories']);
 		$config = Helpers::merge($config, $defaults);
 		return $expand ? $this->compiler->getContainerBuilder()->expand($config) : $config;
 	}

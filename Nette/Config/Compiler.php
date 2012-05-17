@@ -114,7 +114,23 @@ class Compiler extends Nette\Object
 	public function processExtensions()
 	{
 		for ($i = 0; $slice = array_slice($this->extensions, $i, 1); $i++) {
-			reset($slice)->loadConfiguration();
+			if (isset($this->config[$name])) {
+				foreach (array('services', 'factories') as $item) {
+					if (isset($this->config[$name][$item])) {
+						foreach ((array) $this->config[$name][$item] as $name2 => $def) {
+							$this->config[$item][$name . '.' . $name2] = $def;
+		}
+						unset($this->config[$name][$item]);
+					}
+				}
+			}
+
+			$slice[0]->loadConfiguration();
+
+			$this->container->addDependency(Nette\Reflection\ClassType::from($slice[0])->getFileName());
+			$this->container->addDefinition($name)
+				->setClass('Nette\DI\NestedAccessor', array('@container', $name))
+				->setAutowired(FALSE);
 		}
 
 		if ($extra = array_diff_key($this->config, self::$reserved, $this->extensions)) {
@@ -128,16 +144,6 @@ class Compiler extends Nette\Object
 	public function processServices()
 	{
 		$this->parseServices($this->container, $this->config);
-
-		foreach ($this->extensions as $name => $extension) {
-			$this->container->addDefinition($name)
-				->setClass('Nette\DI\NestedAccessor', array('@container', $name))
-				->setAutowired(FALSE);
-
-			if (isset($this->config[$name])) {
-				$this->parseServices($this->container, $this->config[$name], $name);
-			}
-		}
 			}
 
 
@@ -146,7 +152,6 @@ class Compiler extends Nette\Object
 	{
 		foreach ($this->extensions as $extension) {
 			$extension->beforeCompile();
-			$this->container->addDependency(Nette\Reflection\ClassType::from($extension)->getFileName());
 		}
 
 		$classes[] = $class = $this->container->generateClass($parentName);
@@ -188,7 +193,7 @@ class Compiler extends Nette\Object
 	 * Parses section 'services' from configuration file.
 	 * @return void
 	 */
-	public static function parseServices(Nette\DI\ContainerBuilder $container, array $config, $namespace = NULL)
+	public static function parseServices(Nette\DI\ContainerBuilder $container, array $config)
 	{
 		$services = isset($config['services']) ? $config['services'] : array();
 		$factories = isset($config['factories']) ? $config['factories'] : array();
@@ -204,7 +209,6 @@ class Compiler extends Nette\Object
 
 		foreach ($all as $name => $def) {
 			$shared = array_key_exists($name, $services);
-			$name = ($namespace ? $namespace . '.' : '') . $name;
 
 			if (($parent = Helpers::takeParent($def)) && $parent !== $name) {
 				$container->removeDefinition($name);
