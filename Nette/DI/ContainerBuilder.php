@@ -31,7 +31,7 @@ class ContainerBuilder extends Nette\Object
 	const CREATED_SERVICE = 'self',
 		THIS_CONTAINER = 'container';
 
-	/** @var array  %param% will be expanded */
+	/** @var array */
 	public $parameters = array();
 
 	/** @var ServiceDefinition[] */
@@ -46,7 +46,7 @@ class ContainerBuilder extends Nette\Object
 
 
 	/**
-	 * Adds new service definition. The expressions %param% and @service will be expanded.
+	 * Adds new service definition.
 	 * @param  string
 	 * @return ServiceDefinition
 	 */
@@ -179,12 +179,12 @@ class ContainerBuilder extends Nette\Object
 
 
 	/**
-	 * Generates $dependencies, $classes and expands and normalize class names.
+	 * Generates $dependencies, $classes and normalizes class names.
 	 * @return array
 	 */
 	public function prepareClassList()
 	{
-		// complete class-factory pairs; expand classes
+		// complete class-factory pairs
 		foreach ($this->definitions as $name => $def) {
 			if ($def->class === self::CREATED_SERVICE || ($def->factory && $def->factory->entity === self::CREATED_SERVICE)) {
 				$def->class = $name;
@@ -196,13 +196,11 @@ class ContainerBuilder extends Nette\Object
 				$this->definitions['_anonymous_' . str_replace('\\', '_', strtolower(trim($name, '\\')))] = $def;
 			}
 
-			if ($def->class) {
-				$def->class = $this->expand($def->class);
-				if (!$def->factory) {
-					$def->factory = new Statement($def->class);
+			if (!$def->factory) {
+				if (!$def->class) {
+					throw new ServiceCreationException("Class and factory are missing in service '$name' definition.");
 				}
-			} elseif (!$def->factory) {
-				throw new ServiceCreationException("Class and factory are missing in service '$name' definition.");
+				$def->factory = new Statement($def->class);
 			}
 		}
 
@@ -244,7 +242,7 @@ class ContainerBuilder extends Nette\Object
 		$recursive[$name] = TRUE;
 
 		$def = $this->definitions[$name];
-		$factory = $this->normalizeEntity($this->expand($def->factory->entity));
+		$factory = $this->normalizeEntity($def->factory->entity);
 
 		if ($def->class) {
 			return $def->class;
@@ -332,7 +330,7 @@ class ContainerBuilder extends Nette\Object
 		$class = new Nette\Utils\PhpGenerator\ClassType('Container');
 		$class->addExtend($parentClass);
 		$class->addMethod('__construct')
-			->addBody('parent::__construct(?);', array($this->expand($this->parameters)));
+			->addBody('parent::__construct(?);', array($this->parameters));
 
 		$classes = $class->addProperty('classes', array());
 		foreach ($this->classes as $name => $foo) {
@@ -349,7 +347,7 @@ class ContainerBuilder extends Nette\Object
 		$meta = $class->addProperty('meta', array());
 		foreach ($definitions as $name => $def) {
 			if ($def->shared) {
-				foreach ($this->expand($def->tags) as $tag => $value) {
+				foreach ($def->tags as $tag => $value) {
 					$meta->value[$name][Container::TAGS][$tag] = $value;
 				}
 			}
@@ -370,7 +368,7 @@ class ContainerBuilder extends Nette\Object
 					->setVisibility($def->shared || $def->internal ? 'protected' : 'public')
 					->setBody($name === self::THIS_CONTAINER ? 'return $this;' : $this->generateService($name));
 
-				foreach ($this->expand($def->parameters) as $k => $v) {
+				foreach ($def->parameters as $k => $v) {
 					$tmp = explode(' ', is_int($k) ? $v : $k);
 					$param = is_int($k) ? $method->addParameter(end($tmp)) : $method->addParameter(end($tmp), $v);
 					if (isset($tmp[1])) {
@@ -394,13 +392,7 @@ class ContainerBuilder extends Nette\Object
 	private function generateService($name)
 	{
 		$def = $this->definitions[$name];
-		$parameters = $this->parameters;
-		foreach ($this->expand($def->parameters) as $k => $v) {
-			$v = explode(' ', is_int($k) ? $v : $k);
-			$parameters[end($v)] = new PhpLiteral('$' . end($v));
-		}
-
-		$code = '$service = ' . $this->formatStatement(Helpers::expand($def->factory, $parameters, TRUE)) . ";\n";
+		$code = '$service = ' . $this->formatStatement($def->factory) . ";\n";
 
 		$entity = $this->normalizeEntity($def->factory->entity);
 		if ($def->class && $def->class !== $entity && !$this->getServiceName($entity)) {
@@ -415,7 +407,6 @@ class ContainerBuilder extends Nette\Object
 		}
 
 		foreach ((array) $def->setup as $setup) {
-			$setup = Helpers::expand($setup, $parameters, TRUE);
 			if (is_string($setup->entity) && strpbrk($setup->entity, ':@?') === FALSE) { // auto-prepend @self
 				$setup->entity = array("@$name", $setup->entity);
 			}
@@ -522,13 +513,24 @@ class ContainerBuilder extends Nette\Object
 
 
 	/**
-	 * Expands %placeholders% in strings (recursive).
+	 * Expands %placeholders% in strings.
 	 * @param  mixed
 	 * @return mixed
 	 */
 	public function expand($value)
 	{
-		return Helpers::expand($value, $this->parameters, TRUE);
+		return Helpers::expand($value, $this->parameters);
+	}
+
+
+
+	/**
+	 * @param  string
+	 * @return PhpLiteral
+	 */
+	public static function literal($php)
+	{
+		return new PhpLiteral($php);
 	}
 
 

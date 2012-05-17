@@ -40,6 +40,13 @@ final class Helpers
 			}
 			return $res;
 
+		} elseif ($var instanceof \stdClass) {
+			$res = new \stdClass;
+			foreach ($var as $key => $val) {
+				$res->$key = self::expand($val, $params, $recursive);
+			}
+			return $res;
+
 		} elseif ($var instanceof Statement) {
 			return new Statement(self::expand($var->entity, $params, $recursive), self::expand($var->arguments, $params, $recursive));
 
