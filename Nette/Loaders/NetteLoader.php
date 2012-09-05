@@ -48,6 +48,8 @@ class NetteLoader extends AutoLoader
 		'Nette\Utils\SafeStream' => 'Nette\SafeStream',
 		'Nette\Utils\Strings' => 'Nette\Strings',
 		'Nette\Utils\Tokenizer' => 'Nette\Tokenizer',
+		'Nette\Utils\AssertionException' => 'Nette\AssertionException',
+		'Nette\Utils\Validators' => 'Nette\Validators\Validators',
 	);
 
 	/** @var array */
@@ -63,6 +65,7 @@ class NetteLoader extends AutoLoader
 		'Nette\ArrayHash' => '/common/ArrayHash',
 		'Nette\ArrayList' => '/common/ArrayList',
 		'Nette\Arrays' => '/common/Arrays',
+		'Nette\AssertionException' => '/common/exceptions',
 		'Nette\Callback' => '/common/Callback',
 		'Nette\DI\MissingServiceException' => '/DI/exceptions',
 		'Nette\DI\ServiceCreationException' => '/DI/exceptions',
@@ -110,7 +113,6 @@ class NetteLoader extends AutoLoader
 		'Nette\TokenizerException' => '/common/Tokenizer',
 		'Nette\UnexpectedValueException' => '/common/exceptions',
 		'Nette\UnknownImageFileException' => '/common/Image',
-		'Nette\Utils\AssertionException' => '/Utils/Validators',
 	);
 
 

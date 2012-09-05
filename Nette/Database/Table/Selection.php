@@ -285,7 +285,7 @@ class Selection extends Nette\Object implements \Iterator, \ArrayAccess, \Counta
 	 */
 	public function find($key)
 	{
-		if (is_array($this->primary) && Nette\Utils\Validators::isList($key)) {
+		if (is_array($this->primary) && Nette\Validators\Validators::isList($key)) {
 			foreach ($this->primary as $i => $primary) {
 				$this->where($primary, $key[$i]);
 			}

@@ -147,6 +147,15 @@ class StaticClassException extends \LogicException
 
 
 /**
+ * The exception that indicates assertion error.
+ */
+class AssertionException extends \Exception
+{
+}
+
+
+
+/**
  * The exception that indicates errors that can not be recovered from. Execution of
  * the script should be halted.
  */

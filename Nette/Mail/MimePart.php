@@ -75,12 +75,12 @@ class MimePart extends Nette\Object
 
 			foreach ($value as $email => $recipient) {
 				if ($recipient !== NULL && !Strings::checkEncoding($recipient)) {
-					Nette\Utils\Validators::assert($recipient, 'unicode', "header '$name'");
+					Nette\Validators\Validators::assert($recipient, 'unicode', "header '$name'");
 				}
 				if (preg_match('#[\r\n]#', $recipient)) {
 					throw new Nette\InvalidArgumentException("Name must not contain line separator.");
 				}
-				Nette\Utils\Validators::assert($email, 'email', "header '$name'");
+				Nette\Validators\Validators::assert($email, 'email', "header '$name'");
 				$tmp[$email] = $recipient;
 			}
 

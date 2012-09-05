@@ -12,7 +12,7 @@
 namespace Nette\Config;
 
 use Nette,
-	Nette\Utils\Validators;
+	Nette\Validators\Validators;
 
 
 

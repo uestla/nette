@@ -14,7 +14,7 @@ namespace Nette\Forms\Controls;
 use Nette,
 	Nette\Forms\Form,
 	Nette\Strings,
-	Nette\Utils\Validators;
+	Nette\Validators\Validators;
 
 
 

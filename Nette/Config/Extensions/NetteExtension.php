@@ -13,7 +13,7 @@ namespace Nette\Config\Extensions;
 
 use Nette,
 	Nette\DI\ContainerBuilder,
-	Nette\Utils\Validators;
+	Nette\Validators\Validators;
 
 
 

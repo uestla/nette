@@ -12,7 +12,7 @@
 namespace Nette\DI;
 
 use Nette,
-	Nette\Utils\Validators,
+	Nette\Validators\Validators,
 	Nette\Strings,
 	Nette\PhpGenerator\Helpers as PhpHelpers,
 	Nette\PhpGenerator\PhpLiteral;

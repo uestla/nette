@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Test: Nette\Utils\Validators::is()
+ * Test: Nette\Validators\Validators::is()
  *
  * @author     David Grudl
  * @package    Nette
  */
 
-use Nette\Utils\Validators;
+use Nette\Validators\Validators;
 
 
 
