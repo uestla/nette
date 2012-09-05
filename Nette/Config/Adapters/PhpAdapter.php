@@ -30,7 +30,7 @@ class PhpAdapter extends Nette\Object implements Nette\Config\IAdapter
 	 */
 	public function load($file)
 	{
-		return Nette\Utils\LimitedScope::load($file);
+		return Nette\LimitedScope::load($file);
 	}
 
 

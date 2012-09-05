@@ -4,7 +4,7 @@
  * Test: Nette\PhpGenerator for classes.
  *
  * @author     David Grudl
- * @package    Nette\Utils
+ * @package    Nette
  */
 
 use Nette\PhpGenerator\ClassType,
@@ -29,7 +29,7 @@ $class
 
 $class
 	->addConst('ROLE', 'admin')
-	->addConst('FORCE_ARRAY', new PhpLiteral('Nette\Utils\Json::FORCE_ARRAY'));
+	->addConst('FORCE_ARRAY', new PhpLiteral('Nette\Json::FORCE_ARRAY'));
 
 $class->addProperty('handle')
 	->setVisibility('private')

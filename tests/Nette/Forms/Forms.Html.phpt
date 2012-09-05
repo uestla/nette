@@ -8,7 +8,7 @@
  */
 
 use Nette\Forms\Form,
-	Nette\Utils\Html;
+	Nette\Html;
 
 
 

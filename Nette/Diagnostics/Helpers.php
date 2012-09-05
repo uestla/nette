@@ -25,7 +25,7 @@ final class Helpers
 
 	/**
 	 * Returns link to editor.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public static function editorLink($file, $line)
 	{
@@ -35,12 +35,12 @@ final class Helpers
 			if (substr($dir, 0, strlen($base)) === $base) {
 				$dir = '...' . substr($dir, strlen($base));
 			}
-			return Nette\Utils\Html::el('a')
+			return Nette\Html::el('a')
 				->href(strtr(Debugger::$editor, array('%file' => rawurlencode($file), '%line' => $line)))
 				->title("$file:$line")
 				->setHtml(htmlSpecialChars(rtrim($dir, DIRECTORY_SEPARATOR)) . DIRECTORY_SEPARATOR . '<b>' . htmlSpecialChars(basename($file)) . '</b>' . ($line ? ":$line" : ''));
 		} else {
-			return Nette\Utils\Html::el('span')->setText($file . ($line ? ":$line" : ''));
+			return Nette\Html::el('span')->setText($file . ($line ? ":$line" : ''));
 		}
 	}
 

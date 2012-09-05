@@ -10,7 +10,7 @@
 
 use Nette\Latte,
 	Nette\Templating\FileTemplate,
-	Nette\Utils\Html;
+	Nette\Html;
 
 
 

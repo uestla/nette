@@ -27,7 +27,7 @@ Assert::same( '<?php $temp->var1 = 123 ?>',  $compiler->expandMacro('var', '$tem
 
 Assert::throws(function() use ($compiler) {
 	$compiler->expandMacro('var', '$var => "123', '');
-}, 'Nette\Utils\TokenizerException', 'Unexpected %a% on line 1, column 9.');
+}, 'Nette\TokenizerException', 'Unexpected %a% on line 1, column 9.');
 
 
 // {default ...}

@@ -12,7 +12,7 @@
 namespace Nette\Reflection;
 
 use Nette,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 

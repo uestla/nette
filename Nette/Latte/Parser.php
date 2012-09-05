@@ -12,7 +12,7 @@
 namespace Nette\Latte;
 
 use Nette,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 

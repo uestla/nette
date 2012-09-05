@@ -191,17 +191,17 @@ class SelectBox extends BaseControl
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{
 		$selected = $this->getValue();
 		$selected = is_array($selected) ? array_flip($selected) : array($selected => TRUE);
 		$control = parent::getControl();
-		$option = Nette\Utils\Html::el('option');
+		$option = Nette\Html::el('option');
 
 		if ($this->prompt !== FALSE) {
-			$control->add($this->prompt instanceof Nette\Utils\Html
+			$control->add($this->prompt instanceof Nette\Html
 				? $this->prompt->value('')
 				: (string) $option->value('')->setText($this->translate((string) $this->prompt))
 			);
@@ -216,7 +216,7 @@ class SelectBox extends BaseControl
 			}
 
 			foreach ($value as $key2 => $value2) {
-				if ($value2 instanceof Nette\Utils\Html) {
+				if ($value2 instanceof Nette\Html) {
 					$dest->add((string) $value2->selected(isset($selected[$key2])));
 
 				} else {

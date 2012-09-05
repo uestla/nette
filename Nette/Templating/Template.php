@@ -90,9 +90,9 @@ class Template extends Nette\Object implements ITemplate
 		}
 
 		if ($cached !== NULL && $storage instanceof Caching\Storages\PhpFileStorage) {
-			Nette\Utils\LimitedScope::load($cached['file'], $this->getParameters());
+			Nette\LimitedScope::load($cached['file'], $this->getParameters());
 		} else {
-			Nette\Utils\LimitedScope::evaluate($compiled, $this->getParameters());
+			Nette\LimitedScope::evaluate($compiled, $this->getParameters());
 		}
 	}
 

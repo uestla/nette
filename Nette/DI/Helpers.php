@@ -60,7 +60,7 @@ final class Helpers
 				throw new Nette\InvalidArgumentException('Circular reference detected for variables: ' . implode(', ', array_keys($recursive)) . '.');
 
 			} else {
-				$val = Nette\Utils\Arrays::get($params, explode('.', $part));
+				$val = Nette\Arrays::get($params, explode('.', $part));
 				if ($recursive) {
 					$val = self::expand($val, $params, (is_array($recursive) ? $recursive : array()) + array($part => 1));
 				}

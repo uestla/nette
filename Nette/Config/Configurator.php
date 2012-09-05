@@ -182,13 +182,13 @@ class Configurator extends Nette\Object
 				));
 				$cached = $cache->load($cacheKey);
 			}
-			Nette\Utils\LimitedScope::load($cached['file'], TRUE);
+			Nette\LimitedScope::load($cached['file'], TRUE);
 
 		} elseif ($this->files) {
 			throw new Nette\InvalidStateException("Set path to temporary directory using setTempDirectory().");
 
 		} else {
-			Nette\Utils\LimitedScope::evaluate($this->buildContainer()); // back compatibility with Environment
+			Nette\LimitedScope::evaluate($this->buildContainer()); // back compatibility with Environment
 		}
 
 		$container = new $this->parameters['container']['class'];

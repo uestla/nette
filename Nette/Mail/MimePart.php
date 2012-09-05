@@ -12,7 +12,7 @@
 namespace Nette\Mail;
 
 use Nette,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 

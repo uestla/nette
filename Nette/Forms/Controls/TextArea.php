@@ -41,7 +41,7 @@ class TextArea extends TextBase
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{

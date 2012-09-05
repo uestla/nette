@@ -13,7 +13,7 @@ namespace Nette\Application\Routers;
 
 use Nette,
 	Nette\Application,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 

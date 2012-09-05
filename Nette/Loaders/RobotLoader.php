@@ -120,10 +120,10 @@ class RobotLoader extends AutoLoader
 
 		if (isset($this->classes[$type]['file'])) {
 			if (empty($this->classes[$type]['filter'])) {
-				Nette\Utils\LimitedScope::load($this->classes[$type]['file'], TRUE);
+				Nette\LimitedScope::load($this->classes[$type]['file'], TRUE);
 			} else {
 				$item = $this->getPhpCache()->load($this->classes[$type]['file']);
-				Nette\Utils\LimitedScope::load($item['file'], TRUE);
+				Nette\LimitedScope::load($item['file'], TRUE);
 			}
 			self::$count++;
 		} else {
@@ -244,7 +244,7 @@ class RobotLoader extends AutoLoader
 			}
 		}
 
-		$iterator = Nette\Utils\Finder::findFiles(array_map(function($ext) { return "*.$ext"; }, array_keys($this->filters)))
+		$iterator = Nette\Finder::findFiles(array_map(function($ext) { return "*.$ext"; }, array_keys($this->filters)))
 			->filter(function($file) use (&$disallow){
 				return !isset($disallow[$file->getPathname()]);
 			})

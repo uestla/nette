@@ -64,7 +64,7 @@ class Parameter extends Nette\Object
 
 		$namespace = /*5.2*PHP_VERSION_ID < 50300 ? '' : */$from->getDeclaringClass()->getNamespaceName();
 		$namespace = $namespace ? "\\$namespace\\" : "\\";
-		if (Nette\Utils\Strings::startsWith($param->typeHint, $namespace)) {
+		if (Nette\Strings::startsWith($param->typeHint, $namespace)) {
 			$param->typeHint = substr($param->typeHint, strlen($namespace));
 		}
 		return $param;

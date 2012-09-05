@@ -17,7 +17,7 @@ use Nette,
 	Nette\Latte\PhpWriter,
 	Nette\Latte\CompileException,
 	Nette\Forms\Form,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 
@@ -115,7 +115,7 @@ class FormMacros extends MacroSet
 					$parts = explode('=', $param, 2);
 					$name = urldecode($parts[0]);
 					if (!isset($form[$name])) {
-						$s .= Nette\Utils\Html::el('input', array('type' => 'hidden', 'name' => $name, 'value' => urldecode($parts[1])));
+						$s .= Nette\Html::el('input', array('type' => 'hidden', 'name' => $name, 'value' => urldecode($parts[1])));
 					}
 				}
 			}

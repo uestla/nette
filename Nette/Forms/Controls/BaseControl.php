@@ -13,7 +13,7 @@ namespace Nette\Forms\Controls;
 
 use Nette,
 	Nette\Forms\IControl,
-	Nette\Utils\Html,
+	Nette\Html,
 	Nette\Forms\Form,
 	Nette\Forms\Rule;
 
@@ -33,10 +33,10 @@ use Nette,
  * @property-read bool $filled
  * @property-write $defaultValue
  * @property   bool $disabled
- * @property-read Nette\Utils\Html $control
- * @property-read Nette\Utils\Html $label
- * @property-read Nette\Utils\Html $controlPrototype
- * @property-read Nette\Utils\Html $labelPrototype
+ * @property-read Nette\Html $control
+ * @property-read Nette\Html $label
+ * @property-read Nette\Html $controlPrototype
+ * @property-read Nette\Html $labelPrototype
  * @property-read Nette\Forms\Rules $rules
  * @property   bool $required
  * @property-read array $errors
@@ -52,10 +52,10 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 	/** @var mixed unfiltered control value */
 	protected $value;
 
-	/** @var Nette\Utils\Html  control element template */
+	/** @var Nette\Html  control element template */
 	protected $control;
 
-	/** @var Nette\Utils\Html  label element template */
+	/** @var Nette\Html  label element template */
 	protected $label;
 
 	/** @var array */
@@ -342,7 +342,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 	public function loadHttpData()
 	{
 		$path = explode('[', strtr(str_replace(array('[]', ']'), '', $this->getHtmlName()), '.', '_'));
-		$this->setValue(Nette\Utils\Arrays::get($this->getForm()->getHttpData(), $path, NULL));
+		$this->setValue(Nette\Arrays::get($this->getForm()->getHttpData(), $path, NULL));
 	}
 
 
@@ -377,7 +377,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{
@@ -394,7 +394,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 		}
 
 		$rules = self::exportRules($this->rules);
-		$rules = substr(Nette\Utils\Json::encode($rules), 1, -1);
+		$rules = substr(Nette\Json::encode($rules), 1, -1);
 		$rules = preg_replace('#"([a-z0-9_]+)":#i', '$1:', $rules);
 		$rules = preg_replace('#(?<!\\\\)"(?!:[^a-z])([^\\\\\',]*)"#i', "'$1'", $rules);
 		$control->data('nette-rules', $rules ? $rules : NULL);
@@ -407,7 +407,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 	/**
 	 * Generates label's HTML element.
 	 * @param  string
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getLabel($caption = NULL)
 	{
@@ -429,7 +429,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 
 	/**
 	 * Returns control's HTML element template.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	final public function getControlPrototype()
 	{
@@ -440,7 +440,7 @@ abstract class BaseControl extends Nette\ComponentModel\Component implements ICo
 
 	/**
 	 * Returns label's HTML element template.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	final public function getLabelPrototype()
 	{

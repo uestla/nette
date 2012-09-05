@@ -4,7 +4,7 @@
  * Test: Nette\PhpGenerator & closure.
  *
  * @author     David Grudl
- * @package    Nette\Utils
+ * @package    Nette
  */
 
 use Nette\PhpGenerator\Method;

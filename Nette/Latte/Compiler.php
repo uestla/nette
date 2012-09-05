@@ -12,7 +12,7 @@
 namespace Nette\Latte;
 
 use Nette,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 
@@ -277,7 +277,7 @@ class Compiler extends Nette\Object
 		} else {
 			$this->htmlNode = new HtmlNode($token->name, $this->htmlNode);
 			$this->htmlNode->isEmpty = in_array($this->contentType, array(self::CONTENT_HTML, self::CONTENT_XHTML))
-				&& isset(Nette\Utils\Html::$emptyElements[strtolower($token->name)]);
+				&& isset(Nette\Html::$emptyElements[strtolower($token->name)]);
 			$this->htmlNode->offset = strlen($this->output);
 			$this->setContext(self::CONTEXT_UNQUOTED_ATTR);
 		}
@@ -489,7 +489,7 @@ class Compiler extends Nette\Object
 		}
 
 		if (!$this->htmlNode->closing) {
-			$this->htmlNode->attrCode = & $this->attrCodes[$uniq = ' n:' . Nette\Utils\Strings::random()];
+			$this->htmlNode->attrCode = & $this->attrCodes[$uniq = ' n:' . Nette\Strings::random()];
 			$code = substr_replace($code, $uniq, strrpos($code, '/>') ?: strrpos($code, '>'), 0);
 		}
 

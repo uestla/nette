@@ -263,7 +263,7 @@ class CoreMacros extends MacroSet
 	 */
 	public function macroAttr(MacroNode $node, PhpWriter $writer)
 	{
-		return $writer->write('echo Nette\Utils\Html::el(NULL, %node.array)->attributes()');
+		return $writer->write('echo Nette\Html::el(NULL, %node.array)->attributes()');
 	}
 
 
@@ -275,7 +275,7 @@ class CoreMacros extends MacroSet
 	public function macroOldAttr(MacroNode $node)
 	{
 		trigger_error('Macro {attr} is deprecated; use n:attr="..." instead.', E_USER_DEPRECATED);
-		return Nette\Utils\Strings::replace($node->args . ' ', '#\)\s+#', ')->');
+		return Nette\Strings::replace($node->args . ' ', '#\)\s+#', ')->');
 	}
 
 

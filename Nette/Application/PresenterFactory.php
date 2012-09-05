@@ -83,7 +83,7 @@ class PresenterFactory implements IPresenterFactory
 			return $class;
 		}
 
-		if (!is_string($name) || !Nette\Utils\Strings::match($name, "#^[a-zA-Z\x7f-\xff][a-zA-Z0-9\x7f-\xff:]*$#")) {
+		if (!is_string($name) || !Nette\Strings::match($name, "#^[a-zA-Z\x7f-\xff][a-zA-Z0-9\x7f-\xff:]*$#")) {
 			throw new InvalidPresenterException("Presenter name must be alphanumeric string, '$name' is invalid.");
 		}
 
@@ -93,7 +93,7 @@ class PresenterFactory implements IPresenterFactory
 			// internal autoloading
 			$file = $this->formatPresenterFile($name);
 			if (is_file($file) && is_readable($file)) {
-				Nette\Utils\LimitedScope::load($file, TRUE);
+				Nette\LimitedScope::load($file, TRUE);
 			}
 
 			if (!class_exists($class)) {

@@ -13,7 +13,7 @@ namespace Nette\Forms\Controls;
 
 use Nette,
 	Nette\Forms\Form,
-	Nette\Utils\Strings,
+	Nette\Strings,
 	Nette\Utils\Validators;
 
 

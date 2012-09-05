@@ -83,7 +83,7 @@ class MultiSelectBox extends SelectBox
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{

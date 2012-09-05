@@ -395,7 +395,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	 */
 	public function changeAction($action)
 	{
-		if (is_string($action) && Nette\Utils\Strings::match($action, '#^[a-zA-Z0-9][a-zA-Z0-9_\x7f-\xff]*$#')) {
+		if (is_string($action) && Nette\Strings::match($action, '#^[a-zA-Z0-9][a-zA-Z0-9_\x7f-\xff]*$#')) {
 			$this->action = $action;
 			$this->view = $action;
 
@@ -1126,7 +1126,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	{
 		$session = $this->getSession('Nette.Application/requests');
 		do {
-			$key = Nette\Utils\Strings::random(5);
+			$key = Nette\Strings::random(5);
 		} while (isset($session[$key]));
 
 		$session[$key] = array($this->getUser()->getId(), $this->request);
@@ -1359,7 +1359,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 	public function getFlashSession()
 	{
 		if (empty($this->params[self::FLASH_KEY])) {
-			$this->params[self::FLASH_KEY] = Nette\Utils\Strings::random(4);
+			$this->params[self::FLASH_KEY] = Nette\Strings::random(4);
 		}
 		return $this->getSession('Nette.Application.Flash/' . $this->params[self::FLASH_KEY]);
 	}

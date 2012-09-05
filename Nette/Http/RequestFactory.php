@@ -12,7 +12,7 @@
 namespace Nette\Http;
 
 use Nette,
-	Nette\Utils\Strings;
+	Nette\Strings;
 
 
 

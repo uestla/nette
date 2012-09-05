@@ -402,7 +402,7 @@ class NetteExtension extends Nette\Config\CompilerExtension
 		}
 
 		if (empty($config['latte']['xhtml'])) {
-			$initialize->addBody('Nette\Utils\Html::$xhtml = ?;', array((bool)$config['latte']['xhtml']));
+			$initialize->addBody('Nette\Html::$xhtml = ?;', array((bool)$config['latte']['xhtml']));
 		}
 
 		if (isset($config['security']['frames']) && $config['security']['frames'] !== TRUE) {

@@ -13,7 +13,7 @@ namespace Nette\Config\Adapters;
 
 use Nette,
 	Nette\Config\Helpers,
-	Nette\Utils\Neon;
+	Nette\Neon;
 
 
 
@@ -63,7 +63,7 @@ class NeonAdapter extends Nette\Object implements Nette\Config\IAdapter
 
 			if (is_array($val)) {
 				$val = $this->process($val);
-			} elseif ($val instanceof Nette\Utils\NeonEntity) {
+			} elseif ($val instanceof Nette\NeonEntity) {
 				$val = (object) array('value' => $val->value, 'attributes' => $this->process($val->attributes));
 			}
 			$res[$key] = $val;

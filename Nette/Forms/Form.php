@@ -29,7 +29,7 @@ use Nette;
  * @property-read bool $success
  * @property-read array $httpData
  * @property-read array $errors
- * @property-read Nette\Utils\Html $elementPrototype
+ * @property-read Nette\Html $elementPrototype
  * @property   IFormRenderer $renderer
  */
 class Form extends Container
@@ -115,7 +115,7 @@ class Form extends Container
 	 */
 	public function __construct($name = NULL)
 	{
-		$this->element = Nette\Utils\Html::el('form');
+		$this->element = Nette\Html::el('form');
 		$this->element->action = ''; // RFC 1808 -> empty uri means 'this'
 		$this->element->method = self::POST;
 		$this->element->id = $name === NULL ? NULL : 'frm-' . $name;
@@ -221,7 +221,7 @@ class Form extends Container
 		if (isset($session->$key)) {
 			$token = $session->$key;
 		} else {
-			$session->$key = $token = Nette\Utils\Strings::random();
+			$session->$key = $token = Nette\Strings::random();
 		}
 		$session->setExpiration($timeout, $key);
 		$this[self::PROTECTOR_ID] = new Controls\HiddenField($token);
@@ -442,7 +442,7 @@ class Form extends Container
 		}
 
 		if ($httpRequest->isMethod('post')) {
-			$data = Nette\Utils\Arrays::mergeTree($httpRequest->getPost(), $httpRequest->getFiles());
+			$data = Nette\Arrays::mergeTree($httpRequest->getPost(), $httpRequest->getFiles());
 		} else {
 			$data = $httpRequest->getQuery();
 		}
@@ -532,7 +532,7 @@ class Form extends Container
 
 	/**
 	 * Returns form's HTML element template.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getElementPrototype()
 	{

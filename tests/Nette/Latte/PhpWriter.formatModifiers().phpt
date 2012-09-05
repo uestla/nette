@@ -32,7 +32,7 @@ Assert::throws(function() {
 }, 'Nette\InvalidStateException', 'Modifier name must be alphanumeric string%a%');
 Assert::throws(function() {
 	Assert::same( '$template->mod(@, \'\\\\\', "a", "b", "c", "arg2")',  formatModifiers('@', "mod:'\\\\':a:b:c':arg2") );
-}, 'Nette\Utils\TokenizerException', 'Unexpected %a% on line 1, column 15.');
+}, 'Nette\TokenizerException', 'Unexpected %a% on line 1, column 15.');
 
 
 // common

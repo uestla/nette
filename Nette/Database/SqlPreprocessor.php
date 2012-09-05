@@ -62,7 +62,7 @@ class SqlPreprocessor extends Nette\Object
 		$this->remaining = array();
 		$this->arrayMode = 'assoc';
 
-		$sql = Nette\Utils\Strings::replace($sql, '~\'.*?\'|".*?"|\?|\b(?:INSERT|REPLACE|UPDATE)\b~si', array($this, 'callback'));
+		$sql = Nette\Strings::replace($sql, '~\'.*?\'|".*?"|\?|\b(?:INSERT|REPLACE|UPDATE)\b~si', array($this, 'callback'));
 
 		while ($this->counter < count($params)) {
 			$sql .= ' ' . $this->formatValue($params[$this->counter++]);

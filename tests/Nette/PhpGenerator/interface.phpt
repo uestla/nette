@@ -4,7 +4,7 @@
  * Test: Nette\PhpGenerator for interfaces.
  *
  * @author     David Grudl
- * @package    Nette\Utils
+ * @package    Nette
  */
 
 use Nette\PhpGenerator\ClassType;

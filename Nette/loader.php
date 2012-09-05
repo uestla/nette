@@ -40,7 +40,7 @@ define('NETTE_PACKAGE', '5.3');
 
 require_once __DIR__ . '/common/exceptions.php';
 require_once __DIR__ . '/common/Object.php';
-require_once __DIR__ . '/Utils/LimitedScope.php';
+require_once __DIR__ . '/common/LimitedScope.php';
 require_once __DIR__ . '/Loaders/AutoLoader.php';
 require_once __DIR__ . '/Loaders/NetteLoader.php';
 
@@ -49,10 +49,10 @@ Nette\Loaders\NetteLoader::getInstance()->register();
 
 require_once __DIR__ . '/Diagnostics/Helpers.php';
 require_once __DIR__ . '/Diagnostics/shortcuts.php';
-require_once __DIR__ . '/Utils/Html.php';
+require_once __DIR__ . '/common/Html.php';
 Nette\Diagnostics\Debugger::_init();
 
-Nette\Utils\SafeStream::register();
+Nette\SafeStream::register();
 
 
 

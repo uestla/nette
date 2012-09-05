@@ -35,7 +35,7 @@ Assert::same( "'\\'1, 2, symbol1, symbol2'",  formatArgs("'\\'1, 2, symbol1, sym
 Assert::same( "('hello')",  formatArgs('(hello)') );
 Assert::throws(function() {
 	formatArgs("'\\\\'1, 2, symbol1, symbol2'");
-}, 'Nette\Utils\TokenizerException', 'Unexpected %a% on line 1, column 27.');
+}, 'Nette\TokenizerException', 'Unexpected %a% on line 1, column 27.');
 
 
 // key words

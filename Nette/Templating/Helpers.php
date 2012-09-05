@@ -12,9 +12,9 @@
 namespace Nette\Templating;
 
 use Nette,
-	Nette\Utils\Strings,
+	Nette\Strings,
 	Nette\Forms\Form,
-	Nette\Utils\Html;
+	Nette\Html;
 
 
 
@@ -26,23 +26,23 @@ use Nette,
 final class Helpers
 {
 	private static $helpers = array(
-		'normalize' => 'Nette\Utils\Strings::normalize',
-		'toascii' => 'Nette\Utils\Strings::toAscii',
-		'webalize' => 'Nette\Utils\Strings::webalize',
-		'truncate' => 'Nette\Utils\Strings::truncate',
-		'lower' => 'Nette\Utils\Strings::lower',
-		'upper' => 'Nette\Utils\Strings::upper',
-		'firstupper' => 'Nette\Utils\Strings::firstUpper',
-		'capitalize' => 'Nette\Utils\Strings::capitalize',
-		'trim' => 'Nette\Utils\Strings::trim',
-		'padleft' => 'Nette\Utils\Strings::padLeft',
-		'padright' => 'Nette\Utils\Strings::padRight',
-		'reverse' =>  'Nette\Utils\Strings::reverse',
-		'replacere' => 'Nette\Utils\Strings::replace',
+		'normalize' => 'Nette\Strings::normalize',
+		'toascii' => 'Nette\Strings::toAscii',
+		'webalize' => 'Nette\Strings::webalize',
+		'truncate' => 'Nette\Strings::truncate',
+		'lower' => 'Nette\Strings::lower',
+		'upper' => 'Nette\Strings::upper',
+		'firstupper' => 'Nette\Strings::firstUpper',
+		'capitalize' => 'Nette\Strings::capitalize',
+		'trim' => 'Nette\Strings::trim',
+		'padleft' => 'Nette\Strings::padLeft',
+		'padright' => 'Nette\Strings::padRight',
+		'reverse' =>  'Nette\Strings::reverse',
+		'replacere' => 'Nette\Strings::replace',
 		'url' => 'rawurlencode',
 		'striptags' => 'strip_tags',
 		'nl2br' => 'nl2br',
-		'substr' => 'Nette\Utils\Strings::substring',
+		'substr' => 'Nette\Strings::substring',
 		'repeat' => 'str_repeat',
 		'implode' => 'implode',
 		'number' => 'number_format',
@@ -136,7 +136,7 @@ final class Helpers
 		if (is_object($s) && ($s instanceof ITemplate || $s instanceof Html || $s instanceof Form)) {
 			$s = $s->__toString(TRUE);
 		}
-		return str_replace(']]>', ']]\x3E', Nette\Utils\Json::encode($s));
+		return str_replace(']]>', ']]\x3E', Nette\Json::encode($s));
 	}
 
 
@@ -288,7 +288,7 @@ final class Helpers
 	public static function dataStream($data, $type = NULL)
 	{
 		if ($type === NULL) {
-			$type = Nette\Utils\MimeTypeDetector::fromString($data);
+			$type = Nette\MimeTypeDetector::fromString($data);
 		}
 		return 'data:' . ($type ? "$type;" : '') . 'base64,' . base64_encode($data);
 	}

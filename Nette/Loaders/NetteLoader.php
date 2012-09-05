@@ -37,6 +37,17 @@ class NetteLoader extends AutoLoader
 		'Nette\Utils\PhpGenerator\Parameter' => 'Nette\PhpGenerator\Parameter',
 		'Nette\Utils\PhpGenerator\PhpLiteral' => 'Nette\PhpGenerator\PhpLiteral',
 		'Nette\Utils\PhpGenerator\Property' => 'Nette\PhpGenerator\Property',
+		'Nette\Utils\Arrays' => 'Nette\Arrays',
+		'Nette\Utils\Finder' => 'Nette\Finder',
+		'Nette\Utils\Html' => 'Nette\Html',
+		'Nette\Utils\Json' => 'Nette\Json',
+		'Nette\Utils\LimitedScope' => 'Nette\LimitedScope',
+		'Nette\Utils\MimeTypeDetector' => 'Nette\MimeTypeDetector',
+		'Nette\Utils\Neon' => 'Nette\Neon',
+		'Nette\Utils\Paginator' => 'Nette\Paginator',
+		'Nette\Utils\SafeStream' => 'Nette\SafeStream',
+		'Nette\Utils\Strings' => 'Nette\Strings',
+		'Nette\Utils\Tokenizer' => 'Nette\Tokenizer',
 	);
 
 	/** @var array */
@@ -51,39 +62,55 @@ class NetteLoader extends AutoLoader
 		'Nette\ArgumentOutOfRangeException' => '/common/exceptions',
 		'Nette\ArrayHash' => '/common/ArrayHash',
 		'Nette\ArrayList' => '/common/ArrayList',
+		'Nette\Arrays' => '/common/Arrays',
 		'Nette\Callback' => '/common/Callback',
 		'Nette\DI\MissingServiceException' => '/DI/exceptions',
 		'Nette\DI\ServiceCreationException' => '/DI/exceptions',
 		'Nette\DateTime' => '/common/DateTime',
 		'Nette\DeprecatedException' => '/common/exceptions',
 		'Nette\DirectoryNotFoundException' => '/common/exceptions',
-		'Nette\Environment' => '/common/Environment',
+		'Nette\Environment' => '/Config/Environment',
 		'Nette\FatalErrorException' => '/common/exceptions',
 		'Nette\FileNotFoundException' => '/common/exceptions',
+		'Nette\Finder' => '/common/Finder',
 		'Nette\Framework' => '/common/Framework',
 		'Nette\FreezableObject' => '/common/FreezableObject',
+		'Nette\Html' => '/common/Html',
 		'Nette\IFreezable' => '/common/IFreezable',
 		'Nette\IOException' => '/common/exceptions',
 		'Nette\Image' => '/common/Image',
 		'Nette\InvalidArgumentException' => '/common/exceptions',
 		'Nette\InvalidStateException' => '/common/exceptions',
+		'Nette\Iterators\CachingIterator' => '/common/Iterators/CachingIterator',
+		'Nette\Iterators\Filter' => '/common/Iterators/Filter',
+		'Nette\Iterators\Mapper' => '/common/Iterators/Mapper',
+		'Nette\Iterators\RecursiveFilter' => '/common/Iterators/RecursiveFilter',
+		'Nette\Iterators\Recursor' => '/common/Iterators/Recursor',
+		'Nette\Json' => '/common/Json',
+		'Nette\JsonException' => '/common/Json',
 		'Nette\Latte\CompileException' => '/Latte/exceptions',
+		'Nette\LimitedScope' => '/common/LimitedScope',
 		'Nette\Mail\SmtpException' => '/Mail/SmtpMailer',
 		'Nette\MemberAccessException' => '/common/exceptions',
+		'Nette\MimeTypeDetector' => '/common/MimeTypeDetector',
+		'Nette\Neon' => '/common/Neon',
+		'Nette\NeonEntity' => '/common/Neon',
+		'Nette\NeonException' => '/common/Neon',
 		'Nette\NotImplementedException' => '/common/exceptions',
 		'Nette\NotSupportedException' => '/common/exceptions',
 		'Nette\Object' => '/common/Object',
 		'Nette\ObjectMixin' => '/common/ObjectMixin',
 		'Nette\OutOfRangeException' => '/common/exceptions',
+		'Nette\Paginator' => '/common/Paginator',
+		'Nette\RegexpException' => '/common/Strings',
+		'Nette\SafeStream' => '/common/SafeStream',
 		'Nette\StaticClassException' => '/common/exceptions',
+		'Nette\Strings' => '/common/Strings',
+		'Nette\Tokenizer' => '/common/Tokenizer',
+		'Nette\TokenizerException' => '/common/Tokenizer',
 		'Nette\UnexpectedValueException' => '/common/exceptions',
 		'Nette\UnknownImageFileException' => '/common/Image',
 		'Nette\Utils\AssertionException' => '/Utils/Validators',
-		'Nette\Utils\JsonException' => '/Utils/Json',
-		'Nette\Utils\NeonEntity' => '/Utils/Neon',
-		'Nette\Utils\NeonException' => '/Utils/Neon',
-		'Nette\Utils\RegexpException' => '/Utils/Strings',
-		'Nette\Utils\TokenizerException' => '/Utils/Tokenizer',
 	);
 
 
@@ -115,11 +142,11 @@ class NetteLoader extends AutoLoader
 			trigger_error("Class $type has been renamed to {$this->renamed[$type]}.", E_USER_WARNING);
 
 		} else/**/if (isset($this->list[$type])) {
-			Nette\Utils\LimitedScope::load(NETTE_DIR . $this->list[$type] . '.php', TRUE);
+			Nette\LimitedScope::load(NETTE_DIR . $this->list[$type] . '.php', TRUE);
 			self::$count++;
 
 		}/**/ elseif (substr($type, 0, 6) === 'Nette\\' && is_file($file = NETTE_DIR . strtr(substr($type, 5), '\\', '/') . '.php')) {
-			Nette\Utils\LimitedScope::load($file, TRUE);
+			Nette\LimitedScope::load($file, TRUE);
 			self::$count++;
 		}/**/
 	}

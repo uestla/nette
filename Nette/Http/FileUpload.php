@@ -83,7 +83,7 @@ class FileUpload extends Nette\Object
 	 */
 	public function getSanitizedName()
 	{
-		return trim(Nette\Utils\Strings::webalize($this->name, '.', FALSE), '.-');
+		return trim(Nette\Strings::webalize($this->name, '.', FALSE), '.-');
 	}
 
 
@@ -95,7 +95,7 @@ class FileUpload extends Nette\Object
 	public function getContentType()
 	{
 		if ($this->isOk() && $this->type === NULL) {
-			$this->type = Nette\Utils\MimeTypeDetector::fromFile($this->tmpName);
+			$this->type = Nette\MimeTypeDetector::fromFile($this->tmpName);
 		}
 		return $this->type;
 	}

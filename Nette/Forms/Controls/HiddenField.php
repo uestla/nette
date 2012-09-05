@@ -63,7 +63,7 @@ class HiddenField extends BaseControl
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{

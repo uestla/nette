@@ -48,10 +48,10 @@ class TextInput extends TextBase
 	 */
 	public function sanitize($value)
 	{
-		if ($this->control->maxlength && Nette\Utils\Strings::length($value) > $this->control->maxlength) {
-			$value = Nette\Utils\Strings::substring($value, 0, $this->control->maxlength);
+		if ($this->control->maxlength && Nette\Strings::length($value) > $this->control->maxlength) {
+			$value = Nette\Strings::substring($value, 0, $this->control->maxlength);
 		}
-		return Nette\Utils\Strings::trim(strtr($value, "\r\n", '  '));
+		return Nette\Strings::trim(strtr($value, "\r\n", '  '));
 	}
 
 
@@ -80,7 +80,7 @@ class TextInput extends TextBase
 
 	/**
 	 * Generates control's HTML element.
-	 * @return Nette\Utils\Html
+	 * @return Nette\Html
 	 */
 	public function getControl()
 	{
