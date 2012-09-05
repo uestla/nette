@@ -1,0 +1,30 @@
+{
+	"name": "nette/validators",
+	"type": "library",
+	"description": "Nette Validator Component",
+	"keywords": [],
+	"homepage": "http://nette.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "http://davidgrudl.com"
+		},
+		{
+			"name": "Nette Community",
+			"homepage": "http://nette.org/contributors"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+        "nette/core": "2.1.*#dev"
+	},
+	"autoload": {
+		"classmap": ["./"]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.1-dev"
+		}
+	}
+}
