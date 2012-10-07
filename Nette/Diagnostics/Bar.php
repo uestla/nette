@@ -25,6 +25,35 @@ class Bar extends Nette\Object
 	/** @var array */
 	private $panels = array();
 
+	private $handle;
+
+
+
+	public function init()
+	{
+		if (isset($_GET['_nette_debug']) && preg_match('#^\w+$#', $_GET['_nette_debug'])) {
+			$file = $this->getFileName($_GET['_nette_debug']);
+			header('Content-Type: text/javascript');
+			$html = @file_get_contents($file);
+			if ($html) {
+				echo 'Nette.Debug.newContent(' . json_encode(Nette\Utils\Strings::fixEncoding($html)) . ');';
+				unlink($file);
+			}
+			exit;
+		}
+		$id = uniqid();
+		$this->handle = fopen($this->getFileName($id), 'w');
+		flock($this->handle, LOCK_EX);
+		setCookie('ajax', $id, 0, '/');
+	}
+
+
+
+	public function getFileName($id)
+	{
+		return Debugger::$logDirectory . "/data.$id.dat";
+	}
+
 
 
 	/**
@@ -65,6 +94,9 @@ class Bar extends Nette\Object
 	 */
 	public function render()
 	{
+		if (!$this->handle) {
+			return;
+		}
 		$obLevel = ob_get_level();
 		$panels = array();
 		foreach ($this->panels as $id => $panel) {
@@ -105,8 +137,14 @@ class Bar extends Nette\Object
 			}
 		}
 		$session = NULL;
+		ob_start();
+		require __DIR__ . '/templates/bar.content.phtml';
+		fwrite($this->handle, ob_get_clean());
+		fclose($this->handle);
 
-		require __DIR__ . '/templates/bar.phtml';
+		if (preg_match('#^Content-Type: text/html#im', implode("\n", headers_list())) && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+			require __DIR__ . '/templates/bar.phtml';
+		}
 	}
 
 }

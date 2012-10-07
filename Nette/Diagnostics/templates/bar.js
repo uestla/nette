@@ -265,10 +265,11 @@
 	Debug.init = function() {
 		Debug.initToggle();
 		Debug.initResize();
-		(new Bar).init();
-		$('.nette-panel').each(function() {
-			Debug.getPanel(this.id).init();
-		});
+		var place = document.body.appendChild(document.createElement('div'));
+		place.id = 'nette-debug';
+
+		Debug.tryLoad();
+		setInterval(Debug.tryLoad, 40);
 	};
 
 	Debug.getPanel = function(id) {
@@ -309,5 +310,49 @@
 			});
 		});
 	};
+
+	Debug.loading = false;
+
+	Debug.tryLoad = function() {
+		var m;
+		if (!Debug.loading && (m = document.cookie.match(/ajax=(\w+)/))) {
+			Debug.loading = true;
+			document.cookie = 'ajax=; path=/';
+			Debug.load('?_nette_debug=' + m[1], function() {
+				Debug.loading = false;
+			});
+		}
+	};
+
+	Debug.newContent = function(data) {
+		var place = document.getElementById('nette-debug');
+		place.innerHTML = data;
+		for (var i = 0, scripts = place.getElementsByTagName('script'); i < scripts.length; i++) eval(scripts[i].innerHTML);
+		(new Bar).init();
+		$('.nette-panel').each(function() {
+			Debug.getPanel(this.id).init();
+		});
+		place.style.display = 'block';
+	};
+
+	Debug.load = function(url, callback) {
+		// reuse <script> by ID?
+		var head = document.getElementsByTagName('head')[0] || document.documentElement,
+			script = document.createElement('script'),
+			done = false;
+
+		script.src = url;
+		script.onload = script.onreadystatechange = function() {
+			if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+				done = true;
+				callback && callback.apply();
+				script.onload = script.onreadystatechange = null;
+				head.removeChild(script);
+			}
+		};
+		head.appendChild(script);
+	};
+
+	Debug.init();
 
 })();
