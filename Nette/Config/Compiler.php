@@ -195,9 +195,17 @@ class Compiler extends Nette\Object
 		$factories = isset($config['factories']) ? $config['factories'] : array();
 		$all = array_merge($services, $factories);
 
-		uasort($all, function($a, $b) {
-			return strcmp(Helpers::isInheriting($a), Helpers::isInheriting($b));
-		});
+		$depths = array();
+		foreach ($all as $origName => $def) {
+			if (!Helpers::isInheriting($def)) {
+				$depths[$origName] = 0;
+
+			} else {
+				$depths[$origName] = $depths[$def[Helpers::EXTENDS_KEY]] + 1;
+			}
+		}
+
+		array_multisort($depths, SORT_NUMERIC, SORT_ASC, $all);
 
 		foreach ($all as $origName => $def) {
 			$shared = array_key_exists($origName, $services);
